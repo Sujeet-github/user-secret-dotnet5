@@ -26,12 +26,16 @@ namespace user_secret_dotnet5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // register the class which help us to get property entire the project
+            services.Configure<ServiceSettings>(Configuration.GetSection(nameof(ServiceSettings)));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "user_secret_dotnet5", Version = "v1" });
             });
+
+            services.AddHttpClient<WeatherClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
